@@ -20,7 +20,12 @@ import yt_dlp
 from keep_alive import keep_alive
 
 # CONFIG
-load_dotenv(dotenv_path=Path(__file__).parent / ".env")
+# ពិនិត្យមើលថាតើមានឯកសារ .env ដែរឬទេ (សម្រាប់រត់លើ Local)
+env_path = Path(__file__).parent / ".env"
+if env_path.exists():
+    load_dotenv(dotenv_path=env_path)
+
+# ទាញយក BOT_TOKEN ពី Environment Variables ផ្ទាល់ (ទាំង Render និង Local)
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "").strip()
 MAX_TELEGRAM_MB = 50
 MAX_TELEGRAM_BYTES = MAX_TELEGRAM_MB * 1024 * 1024
