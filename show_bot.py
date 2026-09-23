@@ -197,7 +197,16 @@ def main():
 
     logger.info("Bot starting...")
     
-    # រត់ Bot Polling ធម្មតាដោយសុវត្ថិភាព
+    # แก้ไข Event Loop សម្រាប់ MainThread លើកំណែ Bot ថ្មី
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_closed():
+            raise RuntimeError()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+    # រត់ Bot Polling
     app.run_polling(allowed_updates=Update.ALL_TYPES)
 
 if __name__ == "__main__":
