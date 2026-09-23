@@ -20,13 +20,8 @@ import yt_dlp
 from keep_alive import keep_alive
 
 # CONFIG
-# ពិនិត្យមើលថាតើមានឯកសារ .env ដែរឬទេ (សម្រាប់រត់លើ Local)
-env_path = Path(__file__).parent / ".env"
-if env_path.exists():
-    load_dotenv(dotenv_path=env_path)
-
-# ទាញយក BOT_TOKEN ពី Environment Variables ផ្ទាល់ (ទាំង Render និង Local)
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "").strip()
+# ដាក់ Token ផ្ទាល់ដើម្បីធានាថា Bot ដំណើរការបាននៅលើ Render 100%
+BOT_TOKEN = "8812438202:AAEUsEhspeEHJTtUzOqyk4WnQ_gXRPy-9rU"
 MAX_TELEGRAM_MB = 50
 MAX_TELEGRAM_BYTES = MAX_TELEGRAM_MB * 1024 * 1024
 
@@ -183,8 +178,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         shutil.rmtree(work_dir, ignore_errors=True)
 
 def main():
-    if BOT_TOKEN == "PUT_YOUR_BOT_TOKEN_HERE" or not BOT_TOKEN:
-        raise RuntimeError("Please set BOT_TOKEN (env var or .env file) before running the bot")
+    if not BOT_TOKEN:
+        raise RuntimeError("Please set BOT_TOKEN before running the bot")
 
     # ចាប់ផ្តើម Flask Keep-Alive Server (សម្រាប់ Web Service Port Binding)
     keep_alive()
